@@ -1,4 +1,4 @@
-# alx_travel_app_0x03
+# #alx_travel_app_0x03
 
 This project enhances the ALX Travel App by introducing asynchronous background tasks using Celery and RabbitMQ to handle email notifications for new bookings.
 
