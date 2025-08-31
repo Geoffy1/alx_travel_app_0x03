@@ -9,10 +9,6 @@ from rest_framework import status
 from django.conf import settings
 from django.shortcuts import redirect
 from .models import Payment, Booking
-# listings/views.py
-from rest_framework import viewsets, permissions, status
-from .tasks import send_booking_confirmation_email
-
 
 # Assuming a booking_id is passed to initiate payment
 class InitiatePaymentAPIView(APIView):
@@ -110,25 +106,3 @@ class BookingViewSet(viewsets.ModelViewSet):
     """
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
-
-
-
-class BookingViewSet(viewsets.ModelViewSet):
-    queryset = Booking.objects.all()
-    serializer_class = BookingSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def perform_create(self, serializer):
-        # Save the booking and get the instance
-        booking = serializer.save(user=self.request.user)
-        
-        # Trigger the Celery task to send a confirmation email asynchronously
-        # The .delay() method is a shortcut for a task to be run by the Celery worker
-        send_booking_confirmation_email.delay(booking.id)
-        
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

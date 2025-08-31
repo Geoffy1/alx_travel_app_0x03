@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/geonjogu/Desktop/milestone_5/alx_travel_app_0x03/venv"
+set -gx VIRTUAL_ENV "/Users/geonjogu/Desktop/alx_prodev/alx_travel_app_0x02/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
