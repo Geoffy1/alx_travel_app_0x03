@@ -12,21 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from decouple import config
 from pathlib import Path
 
-# Celery Configuration
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Africa/Nairobi'
-
-# Django Email Backend Configuration (For testing purposes)
-# In a real-world scenario, you'd use a service like SendGrid or Mailgun
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# This backend prints emails to the console, which is useful for testing.
-
-# Add celery-related apps to INSTALLED_APPS
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -58,7 +43,6 @@ INSTALLED_APPS = [
     
     # My apps
     'listings',
-    'django_celery_results',
 ]
 
 MIDDLEWARE = [
