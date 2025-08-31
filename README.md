@@ -25,3 +25,24 @@ The API is accessible under the `/api/` path and provides the following endpoint
 ### API Documentation
 
 Full API documentation (Swagger UI) is available at `/swagger/`.# alx_travel_app_0x01
+
+# alx_travel_app_0x03
+
+This project is a travel booking application built with Django and Django REST Framework. This version introduces background task processing using Celery and RabbitMQ for sending email notifications.
+
+## Prerequisites
+
+- Python 3.x
+- Django & Django REST Framework
+- Celery
+- RabbitMQ
+
+### RabbitMQ Installation
+
+You need to have RabbitMQ installed and running on your system.
+For Ubuntu/Debian:
+```bash
+sudo apt-get update
+sudo apt-get install rabbitmq-server
+sudo systemctl start rabbitmq-server
+sudo systemctl enable rabbitmq-server# alx_travel_app_0x03
