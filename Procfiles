@@ -1,0 +1,3 @@
+# Procfile
+web: gunicorn alx_travel_app.wsgi:application --bind 0.0.0.0:$PORT --workers 3
+worker: celery -A alx_travel_app worker -l info

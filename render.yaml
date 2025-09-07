@@ -1,0 +1,68 @@
+services:
+- type: web
+name: alx-travel-app
+env: docker
+plan: free
+rootDir: .
+healthCheckPath: /
+envVars:
+- key: DJANGO_SECRET_KEY
+generateValue: true
+- key: DEBUG
+value: "0"
+- key: ALLOWED_HOSTS
+value: alx-travel-app.onrender.com
+- key: CSRF_TRUSTED_EXTRA
+value: https://alx-travel-app.onrender.com
+- key: CELERY_BROKER_URL
+fromService:
+type: rabbitmq
+name: travel-rmq
+property: connectionString
+- key: CELERY_RESULT_BACKEND
+value: rpc://
+- key: EMAIL_HOST
+value: sandbox.smtp.mailtrap.io
+- key: EMAIL_PORT
+value: "587"
+- key: EMAIL_HOST_USER
+sync: false
+- key: EMAIL_HOST_PASSWORD
+sync: false
+- key: DEFAULT_FROM_EMAIL
+value: noreply@alx-travel.local
+
+
+- type: worker
+name: alx-travel-celery
+env: docker
+rootDir: .
+plan: free
+startCommand: celery -A alx_travel_app worker -l info
+envVars:
+- key: DJANGO_SECRET_KEY
+sync: false
+- key: DEBUG
+value: "0"
+- key: CELERY_BROKER_URL
+fromService:
+type: rabbitmq
+name: travel-rmq
+property: connectionString
+- key: CELERY_RESULT_BACKEND
+value: rpc://
+- key: EMAIL_HOST
+value: sandbox.smtp.mailtrap.io
+- key: EMAIL_PORT
+value: "587"
+- key: EMAIL_HOST_USER
+sync: false
+- key: EMAIL_HOST_PASSWORD
+sync: false
+- key: DEFAULT_FROM_EMAIL
+value: noreply@alx-travel.local
+
+
+- type: rabbitmq
+name: travel-rmq
+plan: free
