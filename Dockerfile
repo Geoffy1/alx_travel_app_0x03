@@ -23,4 +23,5 @@ COPY . .
 RUN python manage.py collectstatic --noinput || true
 
 
-CMD ["gunicorn", "alx_travel_app.wsgi:application", "--bind", "0.0.0.0:10000", "--workers", "3"]
+#CMD ["gunicorn", "alx_travel_app.wsgi:application", "--bind", "0.0.0.0:10000", "--workers", "3"]
+CMD celery -A alx_travel_app worker -l info

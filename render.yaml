@@ -40,7 +40,7 @@ services:
   env: docker
   rootDir: .
   plan: free
-  startCommand: celery -A alx_travel_app worker -l info
+  # startCommand is removed because it's handled by the Dockerfile's CMD/ENTRYPOINT
   envVars:
   - key: DJANGO_SECRET_KEY
     sync: false
@@ -70,3 +70,7 @@ services:
 - type: keyvalue
   name: travel-redis
   plan: free
+  # Add the IP allow list for connections within Render's private network
+  ipAllowList:
+  - source: 0.0.0.0/0
+    description: "Allow all IPs to connect (for demonstration)"
