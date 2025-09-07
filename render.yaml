@@ -16,11 +16,14 @@ services:
     value: https://alx-travel-app.onrender.com
   - key: CELERY_BROKER_URL
     fromService:
-      type: rabbitmq
-      name: travel-rmq
+      type: keyvalue
+      name: travel-redis
       property: connectionString
   - key: CELERY_RESULT_BACKEND
-    value: rpc://
+    fromService:
+      type: keyvalue
+      name: travel-redis
+      property: connectionString
   - key: EMAIL_HOST
     value: sandbox.smtp.mailtrap.io
   - key: EMAIL_PORT
@@ -45,11 +48,14 @@ services:
     value: "0"
   - key: CELERY_BROKER_URL
     fromService:
-      type: rabbitmq
-      name: travel-rmq
+      type: keyvalue
+      name: travel-redis
       property: connectionString
   - key: CELERY_RESULT_BACKEND
-    value: rpc://
+    fromService:
+      type: keyvalue
+      name: travel-redis
+      property: connectionString
   - key: EMAIL_HOST
     value: sandbox.smtp.mailtrap.io
   - key: EMAIL_PORT
@@ -61,6 +67,6 @@ services:
   - key: DEFAULT_FROM_EMAIL
     value: noreply@alx-travel.local
 
-- type: rabbitmq
-  name: travel-rmq
+- type: keyvalue
+  name: travel-redis
   plan: free
